@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
+import { ConfigModule } from './common/config/config.module'; // 配置模块
+import { LoggerModule } from './common/logger/log.module';
 
 @Module({
-  imports: [UserModule],
+  imports: [ConfigModule, LoggerModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}
