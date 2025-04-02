@@ -15,7 +15,7 @@ export const consoleTransports = new Console({
 export function createRotateTransport(level: string, fileName: string) {
   return new DailyRotateFile({
     level,
-    dirname: 'log',
+    dirname: 'logs',
     filename: `${fileName}-%DATE%.log`,
     datePattern: 'YYYY-MM-DD-HH',
     zippedArchive: true,
