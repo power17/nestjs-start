@@ -8,4 +8,11 @@
 ```sh
 pnpm install
 pnpm run dev:start  # dev
+
+# mongo(window)
+docker ps | findstr  mongo
+docker exec -it nestjs-start-mongo-1 mongosh -u root -p
+# 新建角色
+use nest;
+db.createUser({user: 'root', pwd: 'example', roles: [{role: 'dbOwner', db: 'nest'}]});
 ```
