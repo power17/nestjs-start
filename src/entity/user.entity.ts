@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
-export class UserEntity {
+export class User {
   // 自增列
   @PrimaryGeneratedColumn()
   id: number;

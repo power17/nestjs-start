@@ -4,7 +4,7 @@ import { ConfigModule } from './common/config/config.module'; // 配置模块
 import { LoggerModule } from './common/logger/log.module';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
-import { UserEntity } from './entity/user.entity';
+import { User } from './entity/user.entity';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './entity/user.schema';
 @Module({
@@ -28,7 +28,7 @@ import { UserSchema } from './entity/user.schema';
             Boolean(configService.get('DATABASE_SYNCHRONIZE')) || false,
         }) as TypeOrmModuleOptions,
     }),
-    TypeOrmModule.forFeature([UserEntity]),
+    TypeOrmModule.forFeature([User]),
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
   ],
   controllers: [AppController],

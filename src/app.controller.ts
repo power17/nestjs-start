@@ -1,19 +1,19 @@
 import { Controller, Get } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from './entity/user.entity';
+import { User } from './entity/user.entity';
 import { InjectModel } from '@nestjs/mongoose';
 
 @Controller()
 export class AppController {
   constructor(
-    @InjectRepository(UserEntity) private readonly userEntity,
+    @InjectRepository(User) private readonly user,
     @InjectModel('User') private readonly userModel,
   ) {}
 
   @Get()
   async getHello(): Promise<any> {
-    const res = await this.userEntity.find();
+    const res = await this.user.find();
     const resMongo = await this.userModel.find();
-    return resMongo;
+    return res;
   }
 }
