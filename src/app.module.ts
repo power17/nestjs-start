@@ -7,6 +7,10 @@ import { ConfigService } from '@nestjs/config';
 import { User } from './entity/user.entity';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './entity/user.schema';
+import { RedisModule } from '@nestjs-modules/ioredis';
+// 第三方可选模块
+import { ConditionalModule } from './conditional/conditional.module';
+
 @Module({
   imports: [
     ConfigModule,
@@ -30,6 +34,14 @@ import { UserSchema } from './entity/user.schema';
     }),
     TypeOrmModule.forFeature([User]),
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
+    RedisModule.forRoot({
+      type: 'single',
+      url: 'redis://localhost:6379',
+      options: {
+        password: '',
+      },
+    }),
+    ConditionalModule.register(),
   ],
   controllers: [AppController],
   providers: [],

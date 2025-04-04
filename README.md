@@ -16,3 +16,22 @@ docker exec -it nestjs-start-mongo-1 mongosh -u root -p
 use nest;
 db.createUser({user: 'root', pwd: 'example', roles: [{role: 'dbOwner', db: 'nest'}]});
 ```
+
+## 发送邮件
+
+```js
+await this.mailerService
+  .sendMail({
+    to: '123213@163.com', // list of receivers
+    from: '12323@qq.com', // sender address
+    subject: 'Testing Nest MailerModule ✔', // Subject line
+    template: 'welcome',
+    context: {
+      name: 'test',
+    },
+  })
+  .then(() => {})
+  .catch((err) => {
+    console.log(err);
+  });
+```

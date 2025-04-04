@@ -1,9 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule as Config } from '@nestjs/config';
-const envFilePath = [
-  `.env.${process.env.NODE_ENV || '.env.development'} `,
-  '.env',
-];
+const envFilePath = [`.env.${process.env.NODE_ENV || `development`}`, '.env'];
+
 // 配置模块
 @Module({
   imports: [
