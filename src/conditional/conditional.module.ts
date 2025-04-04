@@ -12,7 +12,6 @@ import { getEnvs } from '@/utils/get-envs';
 const imports = [];
 const providers = [];
 const exportsService = [];
-console.log(process.env.NODE_ENV);
 @Module({})
 export class ConditionalModule {
   static register(): DynamicModule {

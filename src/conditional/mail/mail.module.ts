@@ -8,8 +8,6 @@ import { ConfigService } from '@nestjs/config';
     MailerModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        console.log(process.env.NODE_ENV, configService.get('MAIL_TRANSPORT'));
-
         return {
           transport: configService.get('MAIL_TRANSPORT'),
           defaults: {
