@@ -12,12 +12,15 @@ import { RedisModule } from '@nestjs-modules/ioredis';
 import { ConditionalModule } from './conditional/conditional.module';
 // typeorm
 import { DatabaseModule } from './database/index.module';
-
+// 权限相关模块
+import { AccessControlModule } from './access-control/access-control.module';
 @Module({
   imports: [
     ConfigModule,
     LoggerModule,
     DatabaseModule,
+    AccessControlModule,
+
     TypeOrmModule.forFeature([User]),
     // MongooseModule.forRoot('mongodb://root:example@localhost:27017/nest'),
 

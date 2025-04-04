@@ -3,6 +3,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 
 import { ConfigService } from '@nestjs/config';
+import { toBoolean } from '@/utils/toBoolean';
 
 const connections = new Map<string, DataSource>();
 
@@ -19,9 +20,10 @@ const connections = new Map<string, DataSource>();
           password: configService.get('DATABASE_PASSWORD'),
           database: configService.get('DATABASE_NAME'),
           autoLoadEntities:
-            Boolean(configService.get('DATABASE_AUTO_LOAD_ENTITIES')) || false,
+            toBoolean(configService.get('DATABASE_AUTO_LOAD_ENTITIES')) ||
+            false,
           synchronize:
-            Boolean(configService.get('DATABASE_SYNCHRONIZE')) || false,
+            toBoolean(configService.get('DATABASE_SYNCHRONIZE')) || false,
         }) as TypeOrmModuleOptions,
     }),
   ],
