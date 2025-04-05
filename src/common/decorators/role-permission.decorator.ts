@@ -1,6 +1,6 @@
 import { SetMetadata } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
 import { Action } from '../enum/actions.enum';
+import { Reflector } from '@nestjs/core';
 
 export const PERMISSION_KEY = 'permission';
 

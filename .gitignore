@@ -1,6 +1,8 @@
 # compiled output
 /dist
 /node_modules
+/build
+/bundle
 
 # Logs
 logs
@@ -10,7 +12,6 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
-
 
 # OS
 .DS_Store
@@ -35,4 +36,24 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-.env.ignore
+# dotenv environment variable files
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# temp directory
+.temp
+.tmp
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# 信息安全
+src/assets/keys/*

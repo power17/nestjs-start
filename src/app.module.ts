@@ -1,43 +1,36 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { ConfigModule } from './common/config/config.module'; // 配置模块
-import { LoggerModule } from './common/logger/log.module';
-import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { ConfigService } from '@nestjs/config';
-import { User } from './access-control/user/entity/user.entity';
-import { MongooseModule } from '@nestjs/mongoose';
-import { UserSchema } from './access-control/user/entity/user.schema';
-import { RedisModule } from '@nestjs-modules/ioredis';
+
+// 公共模块
+import { ConfigModule } from './common/config/config.module';
+import { LogsModule } from './common/logger/logs.module';
+import { CacheCommonModule } from './common/cache/cache-common.module';
+import { DatabaseModule } from './database/database.module';
+import { UserModule } from './user/user.module';
+
+// 工具模块
+import { ToolsModule } from './utils/tools.module';
 // 第三方可选模块
 import { ConditionalModule } from './conditional/conditional.module';
-// typeorm
-import { DatabaseModule } from './database/index.module';
 // 权限相关模块
 import { AccessControlModule } from './access-control/access-control.module';
-import { PrismaClient } from 'prisma/clients/mysql';
+// 特性模块 -> 业务模块
+import { FeaturesModule } from './modules/features.module';
+import { PayModule } from './common/pay/pay.module';
 
 @Module({
   imports: [
     ConfigModule,
-    LoggerModule,
+    LogsModule,
+    CacheCommonModule,
     DatabaseModule,
-    AccessControlModule, // 鉴权模块
-
-    TypeOrmModule.forFeature([User]),
-    // MongooseModule.forRoot('mongodb://root:example@localhost:27017/nest'),
-
-    // MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
-    RedisModule.forRoot({
-      type: 'single',
-      url: 'redis://localhost:6379',
-      options: {
-        password: '',
-      },
-    }),
+    UserModule,
+    AccessControlModule,
     ConditionalModule.register(),
+    FeaturesModule,
+    ToolsModule,
+    PayModule,
   ],
   controllers: [AppController],
-  providers: [],
-  exports: [],
 })
 export class AppModule {}

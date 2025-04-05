@@ -2,7 +2,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-// typeorm cli 功能
+import { toBoolean } from '@/utils/format';
 export function getEnv(env: string): Record<string, unknown> {
   if (fs.existsSync(env)) {
     return dotenv.parse(fs.readFileSync(env));
@@ -15,15 +15,15 @@ export function buildConnectionOptions() {
 
   const config = { ...defaultConfig, ...envConfig };
   return {
-    type: config['DATABASE_TYPE'],
-    host: config['DATABASE_HOST'],
-    port: +config['DATABASE_PORT'],
-    username: config['DATABASE_USERNAME'],
-    password: config['DATABASE_PASSWORD'],
-    database: config['DATABASE_NAME'],
+    type: config['DB_TYPE'],
+    host: config['DB_HOST'],
+    port: config['DB_PORT'],
+    username: config['DB_USERNAME'],
+    password: config['DB_PASSWORD'],
+    database: config['DB_DATABASE'],
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
-    synchronize: Boolean(config['DATABASE_SYNCHRONIZE']),
-    autoLoadEntities: Boolean(config['DATABASE_AUTO_LOAD_ENTITIES']),
+    synchronize: toBoolean(config['DB_SYNC']),
+    autoLoadEntities: toBoolean(config['DB_AUTOLOAD']),
   } as TypeOrmModuleOptions;
 }
 

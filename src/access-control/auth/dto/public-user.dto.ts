@@ -13,7 +13,7 @@ export class PublicUserDto extends SigninUserDto {
   password: string;
 
   @Transform(({ value }) => {
-    return value?.map((item) => item.roleId);
+    return value.map((item) => item.roleId);
   })
   @Expose({ name: 'UserRole' })
   roles: any;

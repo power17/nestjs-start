@@ -7,8 +7,9 @@
     "builder": "swc",
     "watchAssets": true,
     "assets": [
-      "conditional/mail/templates/**/*.hbs",
+      "common/mail/templates/**/*.hbs",
       "assets/**/*"
-    ]
+    ],
+    "webpack": false
   }
 }

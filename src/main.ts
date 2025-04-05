@@ -1,32 +1,68 @@
-import { NestFactory, HttpAdapterHost } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { AllFilterFilter } from './common/filter/all-filter.filter';
-import { VERSION_NEUTRAL, VersioningType } from '@nestjs/common';
-
+import { AllExceptionFilter } from './common/filters/all-exception.filter';
+import {
+  ValidationPipe,
+  VERSION_NEUTRAL,
+  VersioningType,
+} from '@nestjs/common';
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    // logger: ['warn', 'error'], //日志
-  });
-  // 从env文件中读取port
-  const configService = app.get(ConfigService);
-  const port = configService.get('PORT', 3000);
-  const prefix = configService.get('PREFIX');
-  const version = configService.get('VERSION');
-  // 全局prefix
+  const app = await NestFactory.create(AppModule);
+  const configServcie = app.get(ConfigService);
+  const port = configServcie.get<number>('PORT', 3000);
+  const cors = configServcie.get('CORS', false);
+  const prefix = configServcie.get('PREFIX', '/api');
+
+  const versionStr = configServcie.get<string>('VERSION');
+  let version = [versionStr];
+  if (versionStr && versionStr.indexOf(',')) {
+    version = versionStr.split(',');
+  }
+  const errorFilterFlag = configServcie.get<string>('ERROR_FILTER');
+
+  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
   app.setGlobalPrefix(prefix);
-  // 版本控制
   app.enableVersioning({
     type: VersioningType.URI,
-    defaultVersion: version || VERSION_NEUTRAL, // 默认不做版本控制
+    defaultVersion:
+      typeof versionStr === 'undefined' ? VERSION_NEUTRAL : version,
   });
 
-  // 使用winston实例
-  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
-  // 全局异常拦截器
-  app.useGlobalFilters(new AllFilterFilter(app.get(HttpAdapterHost))); // HttpAdapterHostHttpAdapterHost 来访问底层 HTTP 服务器的实例，以便处理异常和发送响应
+  if (cors === 'true') {
+    // 允许跨域
+    // https://docs.nestjs.com/security/cors
+    app.enableCors();
+  }
+
+  if (errorFilterFlag === 'true') {
+    const httpAdapter = app.get(HttpAdapterHost);
+    app.useGlobalFilters(new AllExceptionFilter(httpAdapter));
+  }
+
+  app.enableShutdownHooks();
+  // 全局类校验管道
+  app.useGlobalPipes(
+    new ValidationPipe({
+      // true - 去除类上不存在的字段，false - 不会去除
+      whitelist: true,
+      // transform: 自动转换请求对象到 DTO 实例
+      transform: true,
+      transformOptions: {
+        // 允许类转换器隐式转换字段类型，如将字符串转换为数字等。
+        enableImplicitConversion: true,
+      },
+    }),
+  );
+
+  // 全局守卫
+  // 无法来使用UserService一类依赖注入的实例
+  // app.useGlobalGuards()
+
+  // app.useGlobalInterceptors(new SerializeInterceptor());
 
   await app.listen(port);
 }
-bootstrap();
+
+void bootstrap();

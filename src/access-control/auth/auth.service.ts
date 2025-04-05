@@ -1,7 +1,7 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
+import { UserRepository } from '../../user/user.repository';
 import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
-import { UserRepository } from '../user/service/user.repository';
 
 @Injectable()
 export class AuthService {
@@ -28,7 +28,7 @@ export class AuthService {
       access_token: token,
     };
   }
-  // 用户注册
+
   async signup(username: string, password: string) {
     const user = await this.userRepository.findOne(username);
 

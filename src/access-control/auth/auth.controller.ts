@@ -4,7 +4,6 @@ import { SigninUserDto } from './dto/signin-user.dto';
 import { CreateUserPipe } from './pipes/create-user.pipe';
 import { PublicUserDto } from './dto/public-user.dto';
 import { Serialize } from '@/common/decorators/serialize.decorator';
-
 // import { SerializeInterceptor } from '@/common/interceptors/serialize.interceptor';
 
 @Controller('auth')
@@ -14,6 +13,7 @@ export class AuthController {
 
   @Post('/signin')
   signin(@Body() dto: SigninUserDto) {
+    console.log('🚀 ~ AuthController ~ signin ~ dto:', dto);
     const { username, password } = dto;
     return this.authService.signin(username, password);
   }

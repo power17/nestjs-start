@@ -9,7 +9,7 @@ export class PublicRoleDto extends CreateRoleDto {
   permissions: any[];
 
   @Transform(({ value }) => {
-    return value?.map((value) => {
+    return value.map((value) => {
       const policy = value.Policy;
       delete policy['encode'];
       delete value['Policy'];
