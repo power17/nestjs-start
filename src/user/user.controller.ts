@@ -12,10 +12,11 @@ import {
   // Req,
   UseGuards,
 } from '@nestjs/common';
-import { UserRepository } from './user.repository';
+import { UserRepository } from './service/user.repository';
 import { MailerService } from '@nestjs-modules/mailer';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { RolePermissionGuard } from '@/common/guards/role-permission.guard';
 
 // import { AuthGuard } from '@nestjs/passport';
 // import { AdminGuard } from '@/common/guards/admin.guard';
@@ -24,15 +25,14 @@ import { UpdateUserDto } from './dto/update-user.dto';
 //   Permission,
 //   Read,
 // } from '@/common/decorators/role-permission.decorator';
-// import { RolePermissionGuard } from '@/common/guards/role-permission.guard';
-import { Serialize } from '@/common/decorators/serialize.decorator';
+import { Serialize } from '@/common/decorators/serialize.decorator'; // 自定义装饰器
 // import { PublicUpdateUserDto } from './dto/public-update-user.dto';
 // import { AuthGuard } from '@nestjs/passport';
 // import { PolicyGuard } from '@/common/guards/policy.guard';
 import { PublicUserDto } from './dto/public-user.dto';
 
 @Controller('user')
-// @UseGuards(AuthGuard('jwt'), RolePermissionGuard, PolicyGuard)
+@UseGuards(RolePermissionGuard)
 // @Permission('user')
 export class UserController {
   constructor(
@@ -43,7 +43,8 @@ export class UserController {
   @Post()
   @Serialize(PublicUserDto)
   async create(@Body() createUserDto: CreateUserDto) {
-    return this.userRepository.create(createUserDto);
+    const res = await this.userRepository.create(createUserDto);
+    return res;
   }
 
   @Get()

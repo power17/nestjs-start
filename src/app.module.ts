@@ -4,9 +4,9 @@ import { ConfigModule } from './common/config/config.module'; // 配置模块
 import { LoggerModule } from './common/logger/log.module';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
-import { User } from './entity/user.entity';
+import { User } from './user/entity/user.entity';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserSchema } from './entity/user.schema';
+import { UserSchema } from './user/entity/user.schema';
 import { RedisModule } from '@nestjs-modules/ioredis';
 // 第三方可选模块
 import { ConditionalModule } from './conditional/conditional.module';
@@ -19,7 +19,7 @@ import { AccessControlModule } from './access-control/access-control.module';
     ConfigModule,
     LoggerModule,
     DatabaseModule,
-    AccessControlModule,
+    AccessControlModule, // 鉴权模块
 
     TypeOrmModule.forFeature([User]),
     // MongooseModule.forRoot('mongodb://root:example@localhost:27017/nest'),

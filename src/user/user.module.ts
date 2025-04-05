@@ -5,7 +5,7 @@ import { User } from './user.entity';
 import { UserTypeormRepository } from './repository/user.typeorm.repository';
 
 // import { UserSchema } from './user.schema';
-import { UserRepository } from './user.repository';
+import { UserRepository } from './service/user.repository';
 import { UserController } from './user.controller';
 
 import { getEnvs } from '@/utils/get-envs';
