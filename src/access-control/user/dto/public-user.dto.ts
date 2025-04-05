@@ -13,6 +13,7 @@ export class PublicUserDto extends CreateUserDto {
   password: string;
 
   @Transform(({ value }) => {
+    if (!value) return [];
     return value?.map((item) => ({
       id: item.Role.id,
       permissions: item.Role.RolePermissions,

@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './user.entity';
+import { User } from './entity/user.entity';
 import { UserTypeormRepository } from './repository/user.typeorm.repository';
 
 // import { UserSchema } from './user.schema';

@@ -4,9 +4,9 @@ import { ConfigModule } from './common/config/config.module'; // 配置模块
 import { LoggerModule } from './common/logger/log.module';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
-import { User } from './user/entity/user.entity';
+import { User } from './access-control/user/entity/user.entity';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserSchema } from './user/entity/user.schema';
+import { UserSchema } from './access-control/user/entity/user.schema';
 import { RedisModule } from '@nestjs-modules/ioredis';
 // 第三方可选模块
 import { ConditionalModule } from './conditional/conditional.module';

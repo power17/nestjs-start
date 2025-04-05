@@ -35,6 +35,7 @@ export class AllFilterFilter implements ExceptionFilter {
       ip: requestIp.getClientIp(request),
       exception: exception['name'],
       error: msg,
+      exceptionObj: exception,
     };
     this.logger.error('logger', responseBody);
     httpAdapter.reply(response, responseBody, httpStatus);

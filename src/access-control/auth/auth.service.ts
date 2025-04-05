@@ -1,7 +1,7 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
-import { UserRepository } from '../../user/service/user.repository';
+import { UserRepository } from '../user/service/user.repository';
 
 @Injectable()
 export class AuthService {
