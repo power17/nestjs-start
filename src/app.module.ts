@@ -14,6 +14,8 @@ import { ConditionalModule } from './conditional/conditional.module';
 import { DatabaseModule } from './database/index.module';
 // 权限相关模块
 import { AccessControlModule } from './access-control/access-control.module';
+import { PrismaClient } from 'prisma/clients/mysql';
+
 @Module({
   imports: [
     ConfigModule,
@@ -36,5 +38,6 @@ import { AccessControlModule } from './access-control/access-control.module';
   ],
   controllers: [AppController],
   providers: [],
+  exports: [],
 })
 export class AppModule {}

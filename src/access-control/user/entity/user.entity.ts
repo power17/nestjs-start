@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-@Entity()
+@Entity('users')
 export class User {
   // 自增列
   @PrimaryGeneratedColumn()

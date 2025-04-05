@@ -1,6 +1,6 @@
 import { Controller, Get, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './access-control/user/entity/user.entity';
+// import { Users } from './access-control/user/entity/user.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { InjectRedis } from '@nestjs-modules/ioredis';
 import Redis from 'ioredis';
@@ -9,7 +9,7 @@ import { MailerService } from '@nestjs-modules/mailer';
 @Controller()
 export class AppController {
   constructor(
-    @InjectRepository(User) private readonly user,
+    // @InjectRepository(Users) private readonly user,
     // @InjectModel('User') private readonly userModel,
     @InjectRedis() private readonly redis: Redis,
     private readonly mailerService: MailerService,
@@ -17,7 +17,7 @@ export class AppController {
 
   @Get()
   async getHello(): Promise<any> {
-    const res = await this.user.find();
+    // const res = await this.user.find();
     // const resMongo = await this.userModel.find();
     // const token = this.redis.get('token');
     // this.redis.set('token', 'test', 'EX', 60);
@@ -35,6 +35,6 @@ export class AppController {
     //   .catch((err) => {
     //     console.log(err);
     //   });
-    return res;
+    return 'hello word';
   }
 }

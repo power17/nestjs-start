@@ -32,7 +32,7 @@ import { Serialize } from '@/common/decorators/serialize.decorator'; // 自定�
 import { PublicUserDto } from './dto/public-user.dto';
 
 @Controller('user')
-// @UseGuards(RolePermissionGuard)
+@UseGuards(RolePermissionGuard)
 // @Permission('user')
 export class UserController {
   constructor(

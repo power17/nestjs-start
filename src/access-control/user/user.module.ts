@@ -10,13 +10,13 @@ import { UserController } from './user.controller';
 
 import { getEnvs } from '@/utils/get-envs';
 import { toBoolean } from '@/utils/toBoolean';
-// import { RoleModule } from '@/access-control/role/role.module';
+import { RoleModule } from '@/access-control/role/role.module';
 // import { PolicyModule } from '@/access-control/policy/policy.module';
 // import { PermissionModule } from '@/access-control/permission/permission.module';
 
 @Global()
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [RoleModule, TypeOrmModule.forFeature([User])],
   providers: [UserTypeormRepository, UserRepository],
   exports: [UserRepository],
   controllers: [UserController],
